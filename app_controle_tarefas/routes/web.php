@@ -18,14 +18,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
+    ->name('home')
+    ->middleware('verified');
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('tarefa', 'App\Http\Controllers\TarefaController');//->middleware('auth');
+Route::resource('tarefa', 'App\Http\Controllers\TarefaController')
+    ->middleware('verified');
+    //->middleware('auth');
 
 Route::get('/mensagem-teste', function () {
     return new MensagemTesteMail();
