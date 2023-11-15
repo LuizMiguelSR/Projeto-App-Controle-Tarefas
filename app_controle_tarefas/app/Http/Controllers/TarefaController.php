@@ -51,7 +51,7 @@ class TarefaController extends Controller
 
         return "ID: $id | Nome: $name | Email: $email"; */
         $user_id = auth()->user()->id;
-        $tarefas = Tarefa::where('user_id', $user_id)->get();
+        $tarefas = Tarefa::where('user_id', $user_id)->paginate(10);
         return view('tarefa.index', ['tarefas' => $tarefas]);
     }
 
