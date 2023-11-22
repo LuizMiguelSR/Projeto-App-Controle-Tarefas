@@ -18,12 +18,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($tarefas as $key => $tarefa)
+                                @foreach ($tarefas as $key => $t)
                                     <tr>
-                                        <th scope="row">{{ $tarefa['id'] }}</th>
-                                        <td>{{ $tarefa['tarefa'] }}</td>
-                                        <td>{{ date('d/m/Y', strtotime($tarefa['data_limite_conclusao'])) }}</td>
-                                        <td><a href="{{ route('tarefa.edit', $tarefa['id']) }}">Editar</a></td>
+                                        <th scope="row">{{ $t['id'] }}</th>
+                                        <td>{{ $t['tarefa'] }}</td>
+                                        <td>{{ date('d/m/Y', strtotime($t['data_limite_conclusao'])) }}</td>
+                                        <td><a href="{{ route('tarefa.edit', $t['id']) }}">Editar</a></td>
+                                        <td>
+                                            <form id="form_{{$t['id']}}" method="post" action="{{ route('tarefa.destroy', ['tarefa' => $t['id']]) }}">
+                                                @method('DELETE')
+                                                @csrf
+                                            </form>
+                                            <a href="#" onclick="document.getElementById('form_{{$t['id']}}').submit()">Excluir</a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
