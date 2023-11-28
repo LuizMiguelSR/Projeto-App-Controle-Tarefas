@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Mail\MensagemTesteMail;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TarefaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,11 +22,13 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
+Route::get('/home', [HomeController::class, 'index'])
     ->name('home')
     ->middleware('verified');
 
-Route::resource('tarefa', 'App\Http\Controllers\TarefaController')
+Route::get('tarefa/exportacao', [TarefaController::class, 'exportacao'])->name('tarefa.exportacao');
+
+Route::resource('tarefa', TarefaController::class)
     ->middleware('verified');
     //->middleware('auth');
 

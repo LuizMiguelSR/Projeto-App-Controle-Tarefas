@@ -9,6 +9,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <span>Tarefas</span>
                             <a href="{{ route('tarefa.create') }}">Novo</a>
+                            <a href="{{ route('tarefa.exportacao') }}">XLSX</a>
                         </div>
                     </div>
 
