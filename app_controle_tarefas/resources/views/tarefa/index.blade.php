@@ -7,9 +7,12 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex justify-content-between align-items-center">
-                            <span>Tarefas</span>
-                            <a href="{{ route('tarefa.create') }}">Novo</a>
-                            <a href="{{ route('tarefa.exportacao') }}">XLSX</a>
+                            <span class="mr-auto">Tarefas</span>
+                            <div class="ml-auto">
+                                <a href="{{ route('tarefa.create') }}" class="mr-3">Novo</a>
+                                <a href="{{ route('tarefa.exportacao', ['extensao' => 'xlsx']) }}" class="mr-3">XLSX</a>
+                                <a href="{{ route('tarefa.exportacao', ['extensao' => 'csv']) }}">CSV</a>
+                            </div>
                         </div>
                     </div>
 

@@ -146,8 +146,16 @@ class TarefaController extends Controller
         return view('acesso-negado');
     }
 
-    public function exportacao()
+    public function exportacao($extensao)
     {
-        return Excel::download(new TarefasExport, 'lista_de_tarefas.xlsx');
+        $nome_arquivo = 'lista_de_tarefas';
+        if ($extensao == 'xlsx') {
+            $nome_arquivo .= '.' . $extensao;
+        } else if ($extensao == 'csv') {
+            $nome_arquivo .= '.' . $extensao;
+        } else {
+            return redirect()->route('tarefa.index');
+        }
+        return Excel::download(new TarefasExport, $nome_arquivo);
     }
 }
