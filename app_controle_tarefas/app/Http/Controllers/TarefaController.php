@@ -158,11 +158,12 @@ class TarefaController extends Controller
 
     public function exportar()
     {
+        $tarefas = auth()->user()->tarefas()->get();
         $dompdf = new Dompdf();
         $dompdf->setPaper('A4', 'landscape');
 
         // Carregue o conteúdo HTML da sua view "tarefa.pdf"
-        $html = view('tarefa.pdf')->render();
+        $html = view('tarefa.pdf', ['tarefas' => $tarefas])->render();
 
         $dompdf->loadHtml($html);
 
