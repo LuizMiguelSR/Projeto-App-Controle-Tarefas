@@ -171,6 +171,19 @@ class TarefaController extends Controller
         $dompdf->render();
 
         // Envie o PDF para o navegador
-        return $dompdf->stream('lista_de_tarefas.pdf');
+        //return $dompdf->stream('lista_de_tarefas.pdf');
+
+        $output = $dompdf->output();
+
+        // Defina os headers para forçar a exibição inline
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: inline; filename="lista_de_tarefas.pdf"');
+        header('Cache-Control: private, max-age=0, must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . strlen($output));
+
+        // Envie o conteúdo do PDF para o navegador
+        echo $output;
+        exit;
     }
 }
