@@ -160,6 +160,7 @@ class TarefaController extends Controller
     {
         $tarefas = auth()->user()->tarefas()->get();
         $dompdf = new Dompdf();
+        // Tipo de papel e orientação
         $dompdf->setPaper('A4', 'landscape');
 
         // Carregue o conteúdo HTML da sua view "tarefa.pdf"
