@@ -8,6 +8,7 @@ use App\Exports\TarefasExport;
 use Illuminate\Http\Request;
 use App\Mail\NovaTarefaMail;
 use App\Models\Tarefa;
+use Dompdf\Dompdf;
 use Mail;
 
 class TarefaController extends Controller
@@ -151,7 +152,24 @@ class TarefaController extends Controller
         if(in_array($extensao, ['xlsx', 'csv', 'pdf'])) {
             return Excel::download(new TarefasExport, 'lista_de_tarefas.'.$extensao);
         }
-        
+
         return redirect()->route('tarefa.index');
+    }
+
+    public function exportar()
+    {
+        $dompdf = new Dompdf();
+        $dompdf->setPaper('A4', 'landscape');
+
+        // Carregue o conteúdo HTML da sua view "tarefa.pdf"
+        $html = view('tarefa.pdf')->render();
+
+        $dompdf->loadHtml($html);
+
+        // Renderize o PDF
+        $dompdf->render();
+
+        // Envie o PDF para o navegador
+        return $dompdf->stream('lista_de_tarefas.pdf');
     }
 }
